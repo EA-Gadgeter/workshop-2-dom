@@ -1,5 +1,5 @@
 // Importamos la función para registrar las imagenes en el observador
-import {registerImage} from "./lazy";
+import {registerImage, showImageCounter, increaseTotalImages, resetImageCounter} from "./lazy";
 
 const random = () => Math.floor(Math.random() * (maximum - minimum)) + minimum;
 
@@ -21,10 +21,14 @@ const addImage = () => {
     // Cada imagen que creamos la registramos en el observador
     registerImage(newImage);
     imagesContainer.append(newImage);
+    increaseTotalImages();
+    showImageCounter();
 };
 
 const cleanContainer = () => {
     imagesContainer.innerHTML = "";
+    resetImageCounter();
+    showImageCounter();
 };
 
 const minimum = 1;

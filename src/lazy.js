@@ -19,6 +19,10 @@ const loadImage = (entry) => {
 	// Le decimos al navegador que cambie la imagen
 	image.src = url;
 	
+	// Incrementamos el total de imagenes cargadas
+	loadedImages++;
+	showImageCounter();
+	
 	// Y que la deje de obeservar, para que no se ejecute la acción
 	observer.unobserve(imageContainer);
 };
@@ -38,7 +42,24 @@ const observer = new IntersectionObserver(entries => {
 	entries.filter(isIntersecting).forEach(loadImage);
 });
 
-// Función que se encarga de hacer que el observador observe... cada imagen específico
+// Función que se encarga de hacer que el observador observe... cada imagen en específico
 export const registerImage = (image) => {
 	observer.observe(image);
 };
+
+// Función para incrementar el total de imagenes
+export const increaseTotalImages = () => totalImages++;
+
+// Función que muestra un reporte de las imagenes
+export const showImageCounter = () => {
+	console.log(`Total de imagenes: ${totalImages}`);
+	console.log(`Imagenes cargadas: ${loadedImages}`);
+};
+
+export const resetImageCounter = () => {
+	totalImages = 0;
+	loadedImages = 0;
+};
+
+let totalImages = 0;
+let loadedImages = 0;
